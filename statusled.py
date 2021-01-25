@@ -41,6 +41,16 @@ while True:
         pwm_b.ChangeDutyCycle(dc)     # Change duty cycle
         time.sleep(0.05)
 
+    status=client.status()
+    if status['state']=='play':
+        GPIO.output(15,GPIO.HIGH)
+        GPIO.output(11,GPIO.LOW)
+        pwm_b.start(0)
+    else:
+        GPIO.output(15,GPIO.LOW)
+        GPIO.output(11,GPIO.HIGH)
+        pwm_b.stop()
+
     for dc in range(100, -1, -5): # Decrease duty cycle: 100~0
         pwm_b.ChangeDutyCycle(dc)
         time.sleep(0.05)

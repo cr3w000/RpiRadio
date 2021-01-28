@@ -1,0 +1,13 @@
+[Unit]
+Description=Test
+After=network.target
+
+[Service]
+ExecStartPre=/usr/bin/sh -c "sleep 1"
+ExecStart=/usr/bin/python3 /home/pi/RpiRadio/button_vol_up.py
+TimeoutSec=0
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

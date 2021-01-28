@@ -52,7 +52,7 @@ x = 0
 indent = 0
 # Load default font.
 #font = ImageFont.load_default()
-font = ImageFont.truetype("DejaVuSans", 9)
+font = ImageFont.truetype("DejaVuSans", 11)
 #definitions
 client = MPDClient()
 client.connect('localhost', 6600)

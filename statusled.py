@@ -24,6 +24,16 @@ pwm_b = GPIO.PWM(13, 50)
 client = MPDClient()
 client.connect('localhost', 6600)
 
+#init LED
+GPIO.output(15,GPIO.LOW)
+GPIO.output(11,GPIO.HIGH)
+pwm_b.stop()
+
+
+#init mpd
+client.add(/home/pi/playlists/radioplaylist.m3u)
+client.play()
+
 # Poll the playstate and set GPIO.output accordingly
 
 while True:

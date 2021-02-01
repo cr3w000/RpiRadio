@@ -28,10 +28,12 @@ client.connect('localhost', 6600)
 GPIO.output(15,GPIO.LOW)
 GPIO.output(11,GPIO.HIGH)
 pwm_b.stop()
+time.sleep(1)
 
 
 #init mpd
-client.add(/home/pi/playlists/radioplaylist.m3u)
+#client.add('radioplaylist.m3u')
+client.repeat(1)
 client.play()
 
 # Poll the playstate and set GPIO.output accordingly
@@ -43,9 +45,14 @@ while True:
         GPIO.output(11,GPIO.LOW) 
         pwm_b.start(0)
     else:
-        GPIO.output(15,GPIO.LOW)
-        GPIO.output(11,GPIO.HIGH)
-        pwm_b.stop()
+        if status['state']=='pause':
+            GPIO.output(15,GPIO.HIGH)
+            GPIO.output(11,GPIO.HIGH)
+            pwm_b.stop()
+        else:
+            GPIO.output(15,GPIO.LOW)
+            GPIO.output(11,GPIO.HIGH)
+            pwm_b.stop()
 
     for dc in range(0, 101, 5):   # Increase duty cycle: 0~100
         pwm_b.ChangeDutyCycle(dc)     # Change duty cycle

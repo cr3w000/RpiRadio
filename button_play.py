@@ -19,6 +19,8 @@ GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP)   #Key 2 is play
 #definitions
 client = MPDClient()
 client.connect('localhost', 6600)
+wait_for_stop = 0  #stop after some time when paused, streams cannot be paused too long
+
 
 # Poll the playstate and set GPIO.output accordingly
 
@@ -30,6 +32,12 @@ while True:
 
         if channel is None:
             print('Timeout occurred')
+            if status['state']=='pause':
+                wait_for_stop = wait_for_stop + 1
+                if(wait_for_stop > 4):    #wait approx 20s then stop.
+                    client.stop()
+            else:
+                wait_for_stop = 0
         else:
             print('Edge detected on channel', channel)
             if status['state']=='play':

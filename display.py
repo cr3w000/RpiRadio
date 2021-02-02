@@ -69,12 +69,23 @@ while True:
     #example songtitle
     #{'file': 'https://rockfm-cope-rrcast.flumotion.com/cope/rockfm.mp3', 'title': 'LONE STAR - MI CALLE', 'pos': '0', 'id': '1'}
 
-    songtitle = song_info["title"]
-    art_endpos = songtitle.find(PREFIX_SONG)
-    song_pos = art_endpos + 3
 
-    artist = songtitle[:art_endpos]
-    song = songtitle[song_pos:]
+    if 'title' in song_info:
+        songtitle = song_info["title"]
+        art_endpos = songtitle.find(PREFIX_SONG)
+        song_pos = art_endpos + 3
+
+        artist = songtitle[:art_endpos]
+        song = songtitle[song_pos:]
+    elif 'name' in song_info:
+        song = song_info["name"]
+        artist = " "
+    elif 'file' in song_info:
+        song = song_info["title"]
+        artist = " "
+    else:
+        song = "Unknown radio"
+        artist = " "
 
     width_artist = font.getsize(artist)[0]
 #    print (width_artist)

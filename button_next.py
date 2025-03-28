@@ -14,7 +14,7 @@ GPIO.cleanup()
 #GPIO.setmode(GPIO.BCM)
 GPIO.setmode(GPIO.BOARD)
 
-GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP)   #Key 2 is play
+GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP)   #Key 2 is next
 
 #definitions
 client = MPDClient()
@@ -25,7 +25,7 @@ client.connect('localhost', 6600)
 while True:
     try:
         GPIO.setmode(GPIO.BOARD)
-        channel = GPIO.wait_for_edge(33,GPIO.FALLING, timeout=5000)
+        channel = GPIO.wait_for_edge(31,GPIO.FALLING, timeout=5000)  #Key 2 is Next
         status=client.status()   #ask for status each 5s to not lose connection to mpd
 
         if channel is None:
